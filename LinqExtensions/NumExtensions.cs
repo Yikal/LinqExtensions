@@ -15,20 +15,24 @@ namespace LinqExtensions
             return result;
         }
 
-        public static int Mean(this IEnumerable<int> source)
+        public static double Mean(this IEnumerable<int> source)
         {
             var list = source.ToList();
             list.Sort();
             if(list.Count % 2 == 0)
             {
-                return (int)Math.Round(
-                    (list[(int)Math.Floor(list.Count / 2.0)] +
-                    list[(int)Math.Ceiling(list.Count / 2.0)]) / 2.0
-                    );
+                return (list[list.Count / 2-1] + list[list.Count / 2]) / 2.0;
             }else
             {
                 return list[list.Count / 2];
             }
+        }
+
+        public static IEnumerable<double> MultipyWithFactor(this IEnumerable<int> source, double factor)
+        {
+            var result = new List<double>();
+            result.AddRange(source.Select(i => i * factor));
+            return result;
         }
     }
 }
